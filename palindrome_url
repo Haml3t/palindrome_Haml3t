@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import requests
+
+from palindrome_Haml3t.phrase import Phrase
+
+URL = "https://cdn.learnenough.com/phrases.txt"
+
+
+lines = requests.get(URL).content.decode("utf-8").splitlines()
+
+for line in lines:
+    if Phrase(line).ispalindrome():
+        print(f"palindrome detected: {line}")
+    
+palindromes = [line for line in lines if Phrase(line).ispalindrome()]
+palindrome_content = "\n".join(palindromes)
+
+with open("palindromes_url.txt", "w") as file:
+    file.write(palindrome_content)
